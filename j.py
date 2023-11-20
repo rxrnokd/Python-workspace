@@ -8,5 +8,5 @@ if c < 0:
     print(f'백분율 오차: {c:.4f}')
 else:
     print(f'백분율 오차: {c:.4f}')    
-print('완성했습니다')    
+ 
     
