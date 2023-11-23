@@ -1,13 +1,21 @@
-class FourCal:
-    def __init__(self, first, second):
-        self.first = first
-        self.second = second
-    def add(self):
-        return self.first + self.second
-    def sub(self):
-        return self.first - self.second
-    def mul(self):
-        return self.first * self.second
-a = FourCal(1, 2)
-print(a.add())
+from urllib.request import urlopen
+
+domain = 'https://apihub.kma.go.kr/api/typ01/url/upp_temp.php?'
+tm = 'tm1=202302132200&tm2=202302132210&'
+stn_id = 'stn=104&'
+option = 'disp=0&help=0&authKey'
+auth = 're51Tkt5R1mudU5LeVdZ2A'
+
+url = domain + tm + stn_id + option + auth
+
+with  urlopen(url) as f:
+
+    html = f.read()
+    print(html)
+
+
+
+
+
+
         
