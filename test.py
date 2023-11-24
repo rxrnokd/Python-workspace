@@ -1,23 +1,43 @@
-import datetime
-from random import *
+import datetime as dt
+import pickle
 
 def display_custom_calendar(month, year):
     # 각 월의 일수를 저장한 리스트 (윤년이 아닌 경우)
     month_days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
     # 월의 첫 요일을 가지고 온다
-    first_weekday = datetime.date(year, month, 1).weekday()
+    first_weekday = dt.date(year, month, 1).weekday()
 
     # 윤년 확인     
     if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
-        month_days[2] = 29
+        month_days[2] = 29    
+
+    # 오늘 요일 얻기
+    if today.weekday() == 0:
+        weekday  = '월요일'
+    elif today.weekday() == 1:   
+        weekday = '화요일'
+    elif today.weekday() == 2:   
+        weekday = '수요일'
+    elif today.weekday() == 3:   
+        weekday = '목요일'
+    elif today.weekday() == 4:   
+        weekday = '금요일'
+    elif today.weekday() == 5:   
+        weekday = '토요일'
+    elif today.weekday() == 6:   
+        weekday = '일요일'  
+
+    # 현재 날짜 표시
+    print(f"{today.month}월 {today.day}일 {weekday}")
+    print('-' * 20)
 
     # 달력 상단에 현재 월/연도 표시
     month_names = ["", "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-    print(f"{month_names[month]} {year}년") 
+    print(f"{year}년 {month_names[month]}") 
 
     # 요일 이름 출력
-    weekdays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+    weekdays = ["월", "화", "수", "목", "금", "토", "일"]
     print(" ".join(weekdays))    
     print("-" * 20)
 
@@ -35,35 +55,54 @@ def display_custom_calendar(month, year):
             day_counter += 1
         print()
 
-# 스케줄 저장 딕셔너리
-events = {(2023, 10, 1): '수학시험', (2023, 10, 2): '국어시험', (2023, 10, 19): '영어시험'}
+
+def get_all_events():
+    try:
+        with open('events.pickle', 'rb') as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        return {}
+
 
 def add_event(year, month, date, event):
-    global events
     # 일정을 딕셔너리에 저장
+    events = get_all_events()
     if (year, month, date) in events:
         events[(year, month, date)] += ' ' + event
     else:    
         events[(year, month, date)] = event
+
+    with open('events.pickle', 'wb') as f:
+        pickle.dump(events, f) 
     print('일정을 저장 했습니다')
 
 def view_events(year, month, date):
-    global events
     # 일정이 있으면 보여주고 없으면 안보여줌
+    events = get_all_events()
     if (year, month, date) in events:
         print('{}년 {}월 {}일 일정: {}'.format(year, month, date, events[(year, month, date)]))
     else:
         print('{}년 {}월 {}일 일정이 없습니다'.format(year, month, date))
 
 def del_event(year, month, date):
-    global events
     # 일정을 삭제
-    del events[year, month, date]
-    print('일정을 삭제 했습니다')
+    events = get_all_events()
+    if (year, month, date) in events:
+        del events[year, month, date]
+        with open('events', 'wb') as f:
+            pickle.dump(events, f)
+        print('일정을 삭제 했습니다')
+    else:
+        print('일정이 없습니다')
+
+# 오늘 날짜 객체 생성
+today = dt.datetime.today() 
+
+events = get_all_events()
 
 year = int(input('연도를 입력하세요: '))
 month = int(input('월을 입력하세요: '))
-
+print()
 display_custom_calendar(month, year)
 
 while True:
@@ -90,6 +129,8 @@ while True:
         del_event(year, month, date)
 
     elif choice == 4:
+        print()
+        events = get_all_events()
         display_custom_calendar(month, year)
         
         print('프로그램을 종료합니다')
