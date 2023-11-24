@@ -28,7 +28,7 @@ def display_custom_calendar(month, year):
     elif today.weekday() == 6:   
         weekday = '일요일'  
 
-    # 현재 날짜 표시
+    # 현재 날짜 출력
     print(f"{today.month}월 {today.day}일 {weekday}")
     print('-' * 20)
 
@@ -47,7 +47,7 @@ def display_custom_calendar(month, year):
         for _ in range(7):
             if 1 <= day_counter <= month_days[month]:
                 if (year, month, day_counter) in events:
-                    print(str(day_counter).rjust(2), end='*' )
+                    print(str(day_counter).rjust(2), end='*')
                 else:    
                     print(str(day_counter).rjust(2), end=' ')
             else:
@@ -57,36 +57,44 @@ def display_custom_calendar(month, year):
 
 
 def get_all_events():
+    # events 파일에 내용이 있는지 확인 있으면 있는 딕셔너리 리턴 없으면 빈 딕셔너리 리턴
     try:
-        with open('events.pickle', 'rb') as f:
+        with open('events', 'rb') as f:
             return pickle.load(f)
     except FileNotFoundError:
         return {}
 
 
 def add_event(year, month, date, event):
-    # 일정을 딕셔너리에 저장
+    # get_all_events 함수로 파일을 events 객체에 불러온다
     events = get_all_events()
+
+    # 일정이 있으면 추가 없으면 새로 추가
     if (year, month, date) in events:
         events[(year, month, date)] += ' ' + event
     else:    
         events[(year, month, date)] = event
 
-    with open('events.pickle', 'wb') as f:
+    # 다시 파일에 쓰기
+    with open('events', 'wb') as f:
         pickle.dump(events, f) 
     print('일정을 저장 했습니다')
 
 def view_events(year, month, date):
-    # 일정이 있으면 보여주고 없으면 안보여줌
+    # get_all_events 함수로 파일을 events 객체에 불러온다
     events = get_all_events()
+
+    # 일정이 있으면 보여주고 없으면 안보여줌
     if (year, month, date) in events:
         print('{}년 {}월 {}일 일정: {}'.format(year, month, date, events[(year, month, date)]))
     else:
         print('{}년 {}월 {}일 일정이 없습니다'.format(year, month, date))
 
 def del_event(year, month, date):
-    # 일정을 삭제
+    # get_all_events 함수로 파일을 events 객체에 불러온다
     events = get_all_events()
+
+    #일정이 있으면 삭제 하고 파일에 다시 쓰기 없으면 삭제 안함
     if (year, month, date) in events:
         del events[year, month, date]
         with open('events', 'wb') as f:
@@ -98,6 +106,7 @@ def del_event(year, month, date):
 # 오늘 날짜 객체 생성
 today = dt.datetime.today() 
 
+# get_all_events 함수로 파일을 events 객체에 불러온다
 events = get_all_events()
 
 year = int(input('연도를 입력하세요: '))
@@ -130,7 +139,9 @@ while True:
 
     elif choice == 4:
         print()
+        # get_all_events 함수로 파일을 events 객체에 불러온다
         events = get_all_events()
+
         display_custom_calendar(month, year)
         
         print('프로그램을 종료합니다')
