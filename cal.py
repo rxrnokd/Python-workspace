@@ -1,12 +1,11 @@
+import datetime
+
 def display_custom_calendar(month, year):
     # 각 월의 일수를 저장한 리스트 (윤년이 아닌 경우)
     month_days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
-    # 2023년 10월은 일요일부터 시작
-    if year == 2023 and month == 10:
-        first_weekday = 6  # 일요일
-    else:
-        first_weekday = 0  # 임의로 월요일로 설정
+    # 월의 첫 요일을 가지고 온다
+    first_weekday = datetime.date(year, month, 1).weekday()
     
     # 윤년 확인
     if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):

@@ -1,4 +1,5 @@
 import datetime
+from random import *
 
 def display_custom_calendar(month, year):
     # 각 월의 일수를 저장한 리스트 (윤년이 아닌 경우)
