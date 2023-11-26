@@ -31,7 +31,8 @@ def display_custom_calendar(month, year):
 
     # 현재 날짜 기온 강수상태 출력
     print(f"{today.month}월 {today.day}일 {weekday}")
-    print(f'부산 현재기온: {temp} {rain}')
+    print('부산광역시')
+    print(f'현재기온: {temp} {rain}')
     print('-' * 20)
 
     # 달력 상단에 현재 월/연도 표시
@@ -109,7 +110,7 @@ def del_event(year, month, date):
 today = dt.datetime.today() 
 
 # 기온 강수 상태값 받아오기
-temp, rain = short_term_situation(str(today.year)+str(today.month)+str(today.day), str(today.hour)+'00')
+temp, rain = short_term_situation(str(today.year)+str(today.month)+str(today.day), str(today.hour-1)+'00')
 
 # get_all_events 함수로 파일을 events 객체에 불러온다
 events = get_all_events()
