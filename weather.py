@@ -1,9 +1,9 @@
 import requests
 
-def current_temp(date, time):
-    # 기상청 초단기 실황 url 요청변수
+def short_term_situation(date, time):
+    # 기상청 초단기 실황 url, 요청변수 
     url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst'
-    params ={'serviceKey' : 'HcYIyLc612fqNjJ%2FNYs252txzi9CLPoCrXJ7odF8baDERTVYVxSOOPmeKEWFkzL88VMMAOlyv8nUgzu9MUauOA%3D%3D', 'pageNo' : '1', 'numOfRows' : '1000', 'dataType' : 'JSON', 'base_date' : date, 'base_time' : time, 'nx' : '98', 'ny' : '76' }
+    params = {'serviceKey' : 'HcYIyLc612fqNjJ%2FNYs252txzi9CLPoCrXJ7odF8baDERTVYVxSOOPmeKEWFkzL88VMMAOlyv8nUgzu9MUauOA%3D%3D', 'pageNo' : '1', 'numOfRows' : '1000', 'dataType' : 'JSON', 'base_date' : date, 'base_time' : time, 'nx' : '98', 'ny' : '76' }
 
     # 데이터 받아옴
     response = requests.get(url, params=params)
@@ -15,19 +15,19 @@ def current_temp(date, time):
         if rain == '0':
             rain = ' '
         elif rain == '1':
-            rain = '비'
+            rain = '🌧️'
         elif rain == '2':
-            rain = '비/눈'
+            rain = '🌧️|🌨️'
         elif rain == '3':
-            rain = '눈'
+            rain = '🌨️'
         elif rain == '5':
-            rain = '빗방울'                
+            rain = '💧'                
         elif rain == '6':
-            rain = '빗방울/눈날림'
+            rain = '💧|❄️'
         else:
-            rain = '눈날림'    
+            rain = '❄️'    
 
         return data['response']['body']['items']['item'][3]['obsrValue'] + '°C', rain
 
-    except requests.exceptions.RequestException as e:
+    except requests.exceptions.RequestException:
         return "", "" 
