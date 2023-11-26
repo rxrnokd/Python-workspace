@@ -29,7 +29,7 @@ def display_custom_calendar(month, year):
     elif today.weekday() == 6:   
         weekday = '일요일'  
 
-    # 현재 날짜 출력
+    # 현재 날짜 기온 강수상태 출력
     print(f"{today.month}월 {today.day}일 {weekday}")
     print(f'현재기온: {temp} {rain}')
     print('-' * 20)
@@ -108,6 +108,7 @@ def del_event(year, month, date):
 # 오늘 날짜 객체 생성
 today = dt.datetime.today() 
 
+# 기온 강수 상태값 받아오기
 temp, rain = current_temp(str(today.year)+str(today.month)+str(today.day), str(today.hour-1)+'00' )
 
 # get_all_events 함수로 파일을 events 객체에 불러온다
