@@ -1,5 +1,6 @@
 import datetime as dt
 import pickle
+from test2 import *
 
 def display_custom_calendar(month, year):
     # 각 월의 일수를 저장한 리스트 (윤년이 아닌 경우)
@@ -30,6 +31,7 @@ def display_custom_calendar(month, year):
 
     # 현재 날짜 출력
     print(f"{today.month}월 {today.day}일 {weekday}")
+    print(f'현재기온: {temp} {rain}')
     print('-' * 20)
 
     # 달력 상단에 현재 월/연도 표시
@@ -105,6 +107,8 @@ def del_event(year, month, date):
 
 # 오늘 날짜 객체 생성
 today = dt.datetime.today() 
+
+temp, rain = current_temp(str(today.year)+str(today.month)+str(today.day), str(today.hour-1)+'00' )
 
 # get_all_events 함수로 파일을 events 객체에 불러온다
 events = get_all_events()
