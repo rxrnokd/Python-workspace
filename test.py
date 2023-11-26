@@ -15,7 +15,7 @@ def display_custom_calendar(month, year):
 
     # 오늘 요일 얻기
     if today.weekday() == 0:
-        weekday  = '월요일'
+        weekday = '월요일'
     elif today.weekday() == 1:   
         weekday = '화요일'
     elif today.weekday() == 2:   
@@ -110,40 +110,46 @@ def del_event(year, month, date):
 today = dt.datetime.today() 
 
 # 기온 강수 상태값 받아오기
-temp, rain = short_term_situation(str(today.year)+str(today.month)+str(today.day), str(today.hour-1)+'00')
+temp, rain = short_term_situation(str(today.year)+str(today.month)+str(today.day), str(today.hour)+'00')
 
 # get_all_events 함수로 파일을 events 객체에 불러온다
 events = get_all_events()
 
-year = int(input('연도를 입력하세요: '))
-month = int(input('월을 입력하세요: '))
-print()
+year = today.year
+month = today.month
+
 display_custom_calendar(month, year)
 
 while True:
-    print()
-    print('1. 일정 추가')
-    print('2. 일정 조회')
-    print('3. 일정 삭제')
-    print('4. 종료')
+    print('1. 원하는 달보기')
+    print('2. 일정 추가')
+    print('3. 일정 조회')
+    print('4. 일정 삭제')
+    print('5. 종료')
     choice = int(input('선택: '))
 
     if choice == 1:
+        year = int(input('연도를 입력하세요: '))
+        month = int(input('월을 입력하세요: '))
+        print()
+        display_custom_calendar(month, year)
+
+    elif choice == 2:
         date = int(input('추가할 일정의 날짜를 입력하세요: '))
         event = input('일정을 입력하세요: ')
 
         add_event(year, month, date, event)
-    elif choice == 2:
+    elif choice == 3:
         date = int(input('일정을 조회할 날짜를 입력하세요: '))
 
         view_events(year, month, date)
 
-    elif choice == 3:
+    elif choice == 4:
         date = int(input('일정을 삭제할 날짜를 입력하세요: '))
 
         del_event(year, month, date)
 
-    elif choice == 4:
+    elif choice == 5:
         print()
         # get_all_events 함수로 파일을 events 객체에 불러온다
         events = get_all_events()
@@ -155,3 +161,4 @@ while True:
 
     else:
         print('잘못된 입력입니다')
+    continue    

@@ -29,5 +29,5 @@ def short_term_situation(date, time):
 
         return data['response']['body']['items']['item'][3]['obsrValue'] + '°C', rain
 
-    except requests.exceptions.RequestException:
+    except (requests.exceptions.RequestException, KeyError):
         return "", "" 
