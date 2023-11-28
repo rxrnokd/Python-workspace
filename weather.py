@@ -15,17 +15,17 @@ def short_term_situation(date, time):
         if rain == '0':
             rain = ' '
         elif rain == '1':
-            rain = '🌧️'
+            rain = '비'
         elif rain == '2':
-            rain = '🌧️|🌨️'
+            rain = '비|눈'
         elif rain == '3':
-            rain = '🌨️'
+            rain = '눈'
         elif rain == '5':
-            rain = '💧'                
+            rain = '빗방울'                
         elif rain == '6':
-            rain = '💧|❄️'
+            rain = '빗방울|눈날림'
         else:
-            rain = '❄️'    
+            rain = '눈날림'    
 
         return data['response']['body']['items']['item'][3]['obsrValue'] + '°C', rain
 
