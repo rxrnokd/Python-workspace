@@ -42,8 +42,11 @@ frame_today_weather.grid(row=0, column=0, columnspan=7)
 label_today_weather = Label(frame_today_weather, text=str(today.month) + '월 ' + str(today.day) + '일 '+ weekday +' 부산광역시 현재기온: ' + temp + ' ' + rain, font=('Arial',10), bg='beige')
 label_today_weather.place(x = 0, y = 8)
 
-now_date = Label(root, width=5, height=2, text='2023년 11월', bg='beige', font=('Arial', 10))
-now_date.grid(row=1, column=0, columnspan=7, sticky=N+E+W+S)
+change_date = Frame(root, width=root_width, height=40, relief='solid', bd=1, bg='beige' )
+change_date.grid(row=1, column=0, columnspan=7)
+
+now_date = Label(change_date, text='2023년 11월', bg='beige', font=('Arial', 10))
+now_date.place(x=0, y=8)
 
 mo_label = Label(root, width=5, height=2, text='월', bg='beige', font=('Arial',10))
 tu_label = Label(root, width=5, height=2, text='화', bg='beige', font=('Arial',10))
