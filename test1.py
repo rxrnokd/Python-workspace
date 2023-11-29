@@ -47,6 +47,7 @@ def enter_btn_cmd():
     for btn in btns:
         btn.destroy()
     btns.clear()
+    change_date.config(text=year+'년 '+month+'월')
     display_custom_calendar(int(month), int(year))
 
 today = dt.datetime.today()
@@ -79,8 +80,8 @@ label_today_weather.place(x = 0, y = 8)
 # change_date = Frame(root, width=root_width, height=40, relief='solid', bd=1, bg='beige' )
 # change_date.grid(row=1, column=0, columnspan=7)
 
-now_date = Label(root, text='2023년 11월', bg='beige', font=('Arial', 10))
-now_date.grid(row=1, column=0, columnspan=2)
+change_date = Label(root, text=str(today.year)+'년 '+str(today.month)+'월', bg='beige', font=('Arial', 10))
+change_date.grid(row=1, column=0, columnspan=2)
 
 valuse = [str(i) for i in range(1, 13)]
 month_combobox = ttk.Combobox(root, width=2, height=5, values=valuse, state='readonly')
