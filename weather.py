@@ -12,6 +12,7 @@ def short_term_situation(date, time):
     try:
         data = response.json()
         rain = data['response']['body']['items']['item'][0]['obsrValue']
+        
         if rain == '0':
             rain = ' '
         elif rain == '1':
