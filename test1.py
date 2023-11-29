@@ -8,7 +8,7 @@ root = Tk()
 root.title('Calendar')
 
 root_width = 335
-root_height = 405
+root_height = 330
 root_pos_x = 650
 root_pos_y = 250
 
