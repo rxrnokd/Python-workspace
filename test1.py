@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter.ttk as ttk
 import datetime as dt
 from weather import *
+import pickle
 
 
 root = Tk()
@@ -33,7 +34,7 @@ def display_custom_calendar(month, year):
     for a in range(3,9):
         for b in range(7):
             if 1 <= day_counter <= month_days[month]:
-                btn = Button(root, text=str(i), width=5, height=2, bg=bg_color)
+                btn = Button(root, text=str(i), width=5, height=2, bg=bg_color, command=lambda : event_window(year, month, i))
                 btn.grid(row=a, column=b, sticky=N+E+W+S)
                 btns.append(btn)
                 i += 1
@@ -51,6 +52,38 @@ def enter_btn_cmd():
     btns.clear()
     change_date.config(text=year+'년 '+month+'월')
     display_custom_calendar(int(month), int(year))
+
+def get_all_events():
+    # events 파일에 내용이 있는지 확인 있으면 있는 딕셔너리 리턴 없으면 빈 딕셔너리 리턴
+    try:
+        with open('events', 'rb') as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        return {}
+
+def add_event(year, month, date, event):
+    # get_all_events 함수로 파일을 events 객체에 불러온다
+    events = get_all_events()
+
+    events[(year, month, date)] = event
+
+    with open('event', 'wb') as f:
+        pickle.dump(events, f)
+   
+
+def event_window(year, month, date):
+    events = get_all_events()
+    event_view_window = Toplevel(root) 
+    event_view_window.geometry('300x250+1000+250')
+    event_txt = Text(event_view_window, font=('Arial',12))
+    event_txt.pack(fill='both', expand=True)
+    if (year, month, date) in events:
+        event_txt.insert(END, events[(year, month, date)])
+    event = event_txt.get('1.0', END)    
+
+    event_view_window.protocol("WM_DELETE_WINDOW", lambda : add_event(year, month, date, event))   
+
+events = get_all_events()
 
 today = dt.datetime.today()
 
