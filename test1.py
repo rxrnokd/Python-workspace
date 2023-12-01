@@ -73,7 +73,8 @@ def add_event(year, month, date):
 
         with open('events', 'wb') as f:
             pickle.dump(events, f)
-        event_view_window.destroy()
+    
+    event_view_window.destroy()
     
    
 
