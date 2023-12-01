@@ -11,6 +11,7 @@ print(a)
 with open('events', 'rb') as f:
         events = pickle.load(f)
         print(events)
-# del events[(2023, 12 ,32)]        
+# del events[(2023, 12, 32)]
+# del events[(2023, 8, 32)]
 # with open('events', 'wb') as f:
 #         pickle.dump(events, f)
