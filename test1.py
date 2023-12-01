@@ -67,7 +67,7 @@ def get_all_events():
 def add_event(year, month, date):
     # get_all_events 함수로 파일을 events 객체에 불러온다
     
-    if msgbox.askokcancel('알림', '종료 하시겠습니까?'):
+    if msgbox.askokcancel('알림', '저장하시겠습니까?'):
         event = event_txt.get('1.0', END)
         events[(year, month, date)] = event
 
