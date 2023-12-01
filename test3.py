@@ -9,4 +9,8 @@ print(str(today.year)+str(today.month)+str(today.day), str(today.hour).rjust(2, 
 a, b = short_term_situation(str(today.year)+str(today.month)+str(today.day), str(today.hour).rjust(2, '0')+'00')
 print(a)
 with open('events', 'rb') as f:
-        print(pickle.load(f))
+        events = pickle.load(f)
+        print(events)
+# del events[(2023, 12 ,32)]        
+# with open('events', 'wb') as f:
+#         pickle.dump(events, f)
