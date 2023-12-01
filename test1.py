@@ -17,7 +17,7 @@ root_pos_y = 250
 root.geometry('{}x{}+{}+{}'.format(root_width, root_height, root_pos_x, root_pos_y)) # 가로 * 세로 + x좌표 + y좌표
 root.resizable(False, False) # x좌표 y좌표 값 변경 불가
 
-bg_color = 'lightgreen'
+bg_color = 'lightyellow'
 
 root.configure(bg=bg_color)
 
