@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter.messagebox as msgbox
 import tkinter.ttk as ttk
 import datetime as dt
 from weather import *
@@ -66,15 +67,19 @@ def get_all_events():
 def add_event(year, month, date, event):
     # get_all_events 함수로 파일을 events 객체에 불러온다
     events = get_all_events()
+    if msgbox.askokcancel('알림', '일정을 저장 하시겠습니까?'):
+        event_view_window.destroy()
 
-    events[(year, month, date)] = event
+        events[(year, month, date)] = event
 
-    with open('events', 'wb') as f:
-        pickle.dump(events, f)
+        with open('events', 'wb') as f:
+            pickle.dump(events, f)
+    
    
 
 def event_window(year, month, date):
     events = get_all_events()
+    global event_view_window
     event_view_window = Toplevel(root) 
     event_view_window.geometry('300x250+1000+250')
     event_txt = Text(event_view_window, font=('Arial',12))
