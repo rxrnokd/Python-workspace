@@ -46,10 +46,12 @@ def enter_btn_cmd():
     year = year_entry.get()
     month = month_combobox.get()
     year_entry.delete(0, END)
+
     print(btns)
     for btn in btns:
         btn.destroy()
     btns.clear()
+
     change_date.config(text=year+'년 '+month+'월')
     display_custom_calendar(int(month), int(year))
 
@@ -67,7 +69,7 @@ def add_event(year, month, date, event):
 
     events[(year, month, date)] = event
 
-    with open('event', 'wb') as f:
+    with open('events', 'wb') as f:
         pickle.dump(events, f)
    
 
@@ -77,6 +79,7 @@ def event_window(year, month, date):
     event_view_window.geometry('300x250+1000+250')
     event_txt = Text(event_view_window, font=('Arial',12))
     event_txt.pack(fill='both', expand=True)
+    print(date)
     if (year, month, date) in events:
         event_txt.insert(END, events[(year, month, date)])
     event = event_txt.get('1.0', END)    
