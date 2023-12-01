@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter.messagebox as msgbox
 import tkinter.ttk as ttk
 import datetime as dt
 from weather import *
@@ -46,10 +47,12 @@ def enter_btn_cmd():
     year = year_entry.get()
     month = month_combobox.get()
     year_entry.delete(0, END)
+
     print(btns)
     for btn in btns:
         btn.destroy()
     btns.clear()
+
     change_date.config(text=year+'년 '+month+'월')
     display_custom_calendar(int(month), int(year))
 
@@ -61,27 +64,31 @@ def get_all_events():
     except FileNotFoundError:
         return {}
 
-def add_event(year, month, date, event):
+def add_event(year, month, date):
     # get_all_events 함수로 파일을 events 객체에 불러온다
-    events = get_all_events()
+    
+    if msgbox.askokcancel('알림', '저장하시겠습니까?'):
+        event = event_txt.get('1.0', END)
+        events[(year, month, date)] = event
 
-    events[(year, month, date)] = event
-
-    with open('event', 'wb') as f:
-        pickle.dump(events, f)
+        with open('events', 'wb') as f:
+            pickle.dump(events, f)
+        event_view_window.destroy()
+    
    
 
 def event_window(year, month, date):
     events = get_all_events()
+    global event_view_window, event_txt
     event_view_window = Toplevel(root) 
     event_view_window.geometry('300x250+1000+250')
     event_txt = Text(event_view_window, font=('Arial',12))
     event_txt.pack(fill='both', expand=True)
+    print(date)
     if (year, month, date) in events:
         event_txt.insert(END, events[(year, month, date)])
-    event = event_txt.get('1.0', END)    
-
-    event_view_window.protocol("WM_DELETE_WINDOW", lambda : add_event(year, month, date, event))   
+        
+    event_view_window.protocol("WM_DELETE_WINDOW", lambda : add_event(year, month, date))   
 
 events = get_all_events()
 
