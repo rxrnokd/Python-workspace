@@ -21,6 +21,8 @@ bg_color = 'lightyellow'
 
 root.configure(bg=bg_color)
 
+btns = []
+
 def display_custom_calendar(month, year):
     global btn
     month_days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -35,13 +37,16 @@ def display_custom_calendar(month, year):
     for a in range(3,9):
         for b in range(7):
             if 1 <= day_counter <= month_days[month]:
-                btn = Button(root, text=str(i), width=5, height=2, bg=bg_color, command=lambda : event_window(year, month, i))
-                btn.grid(row=a, column=b, sticky=N+E+W+S)
-                btns.append(btn)
+                if (year, month, day_counter) in events:
+                    btn = Button(root, text=str(i), width=5, height=2, bg=bg_color, fg='red', command=lambda date=i : event_window(year, month, date))
+                    btn.grid(row=a, column=b, sticky=N+E+W+S)
+                    btns.append(btn)
+                else:    
+                    btn = Button(root, text=str(i), width=5, height=2, bg=bg_color, command=lambda date=i : event_window(year, month, date))
+                    btn.grid(row=a, column=b, sticky=N+E+W+S)
+                    btns.append(btn)
                 i += 1
             day_counter += 1
-
-btns = []
 
 def enter_btn_cmd():
     year = year_entry.get()
@@ -85,7 +90,6 @@ def event_window(year, month, date):
     event_view_window.geometry('300x250+1000+250')
     event_txt = Text(event_view_window, font=('Arial',12))
     event_txt.pack(fill='both', expand=True)
-    print(date)
     if (year, month, date) in events:
         event_txt.insert(END, events[(year, month, date)])
         
