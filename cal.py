@@ -115,46 +115,50 @@ month = today.month
 # 현재 달력을 표시
 display_custom_calendar(month, year)
 
-while True: 
-    print('1. 원하는 달보기')
-    print('2. 일정 추가')
-    print('3. 일정 조회')
-    print('4. 일정 삭제')
-    print('5. 종료')
-    choice = int(input('선택: ')) # 사용자에게 입력 받음
+try:
+    while True: 
+        print('1. 원하는 달보기')
+        print('2. 일정 추가')
+        print('3. 일정 조회')
+        print('4. 일정 삭제')
+        print('5. 종료')
+        choice = int(input('선택: ')) # 사용자에게 입력 받음
 
-    if choice == 1:
-        year = int(input('연도를 입력하세요: '))
-        month = int(input('월을 입력하세요: '))
-        print()
-        display_custom_calendar(month, year) # 원하는 월을 표시
+        if choice == 1:
+            year = int(input('연도를 입력하세요: '))
+            month = int(input('월을 입력하세요: '))
+            print()
+            display_custom_calendar(month, year) # 원하는 월을 표시
 
-    elif choice == 2:
-        date = int(input('추가할 일정의 날짜를 입력하세요: '))
-        event = input('일정을 입력하세요: ')
+        elif choice == 2:
+            date = int(input('추가할 일정의 날짜를 입력하세요: '))
+            event = input('일정을 입력하세요: ')
 
-        add_event(year, month, date, event) # 일정을 추가
+            add_event(year, month, date, event) # 일정을 추가
 
-    elif choice == 3:
-        date = int(input('일정을 조회할 날짜를 입력하세요: '))
+        elif choice == 3:
+            date = int(input('일정을 조회할 날짜를 입력하세요: '))
 
-        view_events(year, month, date) # 원하는 날짜 일정 조회
+            view_events(year, month, date) # 원하는 날짜 일정 조회
 
-    elif choice == 4:
-        date = int(input('일정을 삭제할 날짜를 입력하세요: '))
+        elif choice == 4:
+            date = int(input('일정을 삭제할 날짜를 입력하세요: '))
 
-        del_event(year, month, date) # 원하는 날짜 일정을 삭제
+            del_event(year, month, date) # 원하는 날짜 일정을 삭제
 
-    elif choice == 5:
-        print()
-        # get_all_events 함수로 파일을 events 객체에 불러온다
-        events = get_all_events()
+        elif choice == 5:
+            print()
+            # get_all_events 함수로 파일을 events 객체에 불러온다
+            events = get_all_events()
 
-        display_custom_calendar(month, year)
+            display_custom_calendar(month, year)
         
-        print('프로그램을 종료합니다') # 마지막으로 바뀐 달력을 표시
-        break
+            print('프로그램을 종료합니다') # 마지막으로 바뀐 달력을 표시
+            break
 
-    else:
-        print('잘못된 입력입니다') # 잘못 입력했을 때 표시하고 이어감
-    continue
+        else:
+            print('잘못된 입력입니다') # 잘못 입력했을 때 표시하고 이어감
+        continue
+except ValueError:
+    print('잘못 입력했습니다.')
+    
