@@ -110,7 +110,7 @@ def del_event(year, month, date):
 today = dt.datetime.today() 
 
 # 기온 강수 상태값 받아오기
-temp, rain = short_term_situation(str(today.year)+str(today.month)+str(today.day), str(today.hour).rjust(2, '0')+'00')
+temp, rain = short_term_situation(str(today.year)+str(today.month).rjust(2, '0')+str(today.day).rjust(2, '0'), str(today.hour).rjust(2, '0')+'00')
 
 # get_all_events 함수로 파일을 events 객체에 불러온다
 events = get_all_events()
