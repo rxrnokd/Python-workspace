@@ -46,10 +46,16 @@ def display_custom_calendar(month, year):
     for _ in range(6): # 한 달은 최대 6주까지 있을 수 있음
         for _ in range(7):
             if 1 <= day_counter <= month_days[month]:
-                if (year, month, day_counter) in events: # 일정이 있으면 별 표시
-                    print(str(day_counter).rjust(2), end='*')
-                else:    
-                    print(str(day_counter).rjust(2), end=' ')
+                if (month, day_counter) in event_date: # 기념일 표시
+                    if (year, month, day_counter) in events: # 일정이 있으면 별 표시
+                        print(event_date[(month, day_counter)], end='*')
+                    else:    
+                        print(event_date[(month, day_counter)], end=' ')
+                else:
+                    if (year, month, day_counter) in events: # 일정이 있으면 별 표시
+                        print(str(day_counter).rjust(2), end='*')
+                    else:    
+                        print(str(day_counter).rjust(2), end=' ')
             else:
                 print('  ', end=' ')
             day_counter += 1
@@ -101,6 +107,8 @@ def del_event(year, month, date):
         print('일정을 삭제 했습니다')
     else:
         print('일정이 없습니다')
+
+event_date = {(1, 1): '🧧', (2, 14): '🍫', (5, 5): '👧', (8, 15): '🙌', (10, 9): '🇰🇷', (12, 25): '🎄'}     
 
 # 오늘 날짜 객체 생성
 today = dt.datetime.today()
