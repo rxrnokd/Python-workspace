@@ -169,4 +169,3 @@ try:
         continue
 except ValueError:
     print('잘못 입력했습니다.')
-    
