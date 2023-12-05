@@ -59,6 +59,7 @@ def enter_btn_cmd():
     btns.clear()
 
     change_date.config(text=year+'년 '+month+'월')
+    
     display_custom_calendar(int(month), int(year))
 
 def get_all_events():
@@ -70,8 +71,6 @@ def get_all_events():
         return {}
 
 def add_event(year, month, date):
-    # get_all_events 함수로 파일을 events 객체에 불러온다
-    
     if msgbox.askokcancel('알림', '저장하시겠습니까?'):
         event = event_txt.get('1.0', END)
         events[(year, month, date)] = event
@@ -84,12 +83,16 @@ def add_event(year, month, date):
    
 
 def event_window(year, month, date):
-    events = get_all_events()
     global event_view_window, event_txt
+
+    events = get_all_events()
+
     event_view_window = Toplevel(root) 
     event_view_window.geometry('300x250+1000+250')
+
     event_txt = Text(event_view_window, font=('Arial',12))
     event_txt.pack(fill='both', expand=True)
+
     if (year, month, date) in events:
         event_txt.insert(END, events[(year, month, date)])
         
@@ -124,9 +127,6 @@ frame_today_weather.grid(row=0, column=0, columnspan=7)
 label_today_weather = Label(frame_today_weather, text=str(today.month) + '월 ' + str(today.day) + '일 '+ weekday +' 부산광역시 현재기온: ' + temp + ' ' + rain, font=('Arial',10), bg=bg_color)
 label_today_weather.place(x = 0, y = 8)
 
-# change_date = Frame(root, width=root_width, height=40, relief='solid', bd=1, bg='beige' )
-# change_date.grid(row=1, column=0, columnspan=7)
-
 change_date = Label(root, text=str(today.year)+'년 '+str(today.month)+'월', bg=bg_color, font=('Arial', 10))
 change_date.grid(row=1, column=0, columnspan=2)
 
@@ -140,8 +140,6 @@ year_entry.grid(row=1, column=4, sticky=N+E+W+S)
 
 enter_btn = Button(root, width=5, text='입력', bg=bg_color, command=enter_btn_cmd)
 enter_btn.grid(row=1, column=6, sticky=N+E+W+S)
-
-
 
 mo_label = Label(root, width=5, height=2, text='월', bg=bg_color, font=('Arial',10))
 tu_label = Label(root, width=5, height=2, text='화', bg=bg_color, font=('Arial',10))
@@ -158,8 +156,6 @@ fr_label.grid(row=2, column=4, sticky=N+E+W+S)
 sa_label.grid(row=2, column=5, sticky=N+E+W+S)
 su_label.grid(row=2, column=6, sticky=N+E+W+S)
 
-
 display_custom_calendar(today.month, today.year)
-    
 
 root.mainloop()
