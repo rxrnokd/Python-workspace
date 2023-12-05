@@ -99,7 +99,7 @@ events = get_all_events()
 
 today = dt.datetime.today()
 
-temp, rain = short_term_situation(str(today.year)+str(today.month)+str(today.day), str(today.hour).rjust(2, '0')+'00')
+temp, rain = short_term_situation(str(today.year)+str(today.month).rjust(2, '0')+str(today.day).rjust(2, '0'), str(today.hour).rjust(2, '0')+'00')
 
 
 if today.weekday() == 0:
