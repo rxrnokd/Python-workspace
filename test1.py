@@ -121,10 +121,10 @@ elif today.weekday() == 6:
     weekday = '일요일'
 
 
-frame_today_weather = Frame(root, width=root_width, height=40, relief='solid', bd=1, bg=bg_color)
+frame_today_weather = Frame(root, width=root_width, height=40, relief='solid', bd=0.5, bg=bg_color)
 frame_today_weather.grid(row=0, column=0, columnspan=7)
 
-label_today_weather = Label(frame_today_weather, text=str(today.month) + '월 ' + str(today.day) + '일 '+ weekday +' 부산광역시 현재기온: ' + temp + ' ' + rain, font=('Arial',10), bg=bg_color)
+label_today_weather = Label(frame_today_weather, text=str(today.month) + '월 ' + str(today.day) + '일 '+ weekday +' 부산광역시 현재기온: ' + temp + ' ' + rain, font=('함초롬돋움',10), bg=bg_color)
 label_today_weather.place(x = 0, y = 8)
 
 change_date = Label(root, text=str(today.year)+'년 '+str(today.month)+'월', bg=bg_color, font=('Arial', 10))
@@ -141,13 +141,13 @@ year_entry.grid(row=1, column=4, sticky=N+E+W+S)
 enter_btn = Button(root, width=5, text='입력', bg=bg_color, command=enter_btn_cmd)
 enter_btn.grid(row=1, column=6, sticky=N+E+W+S)
 
-mo_label = Label(root, width=5, height=2, text='월', bg=bg_color, font=('Arial',10))
-tu_label = Label(root, width=5, height=2, text='화', bg=bg_color, font=('Arial',10))
-we_label = Label(root, width=5, height=2, text='수', bg=bg_color, font=('Arial',10))
-th_label = Label(root, width=5, height=2, text='목', bg=bg_color, font=('Arial',10))
-fr_label = Label(root, width=5, height=2, text='금', bg=bg_color, font=('Arial',10))
-sa_label = Label(root, width=5, height=2, text='토', bg=bg_color, font=('Arial',10))
-su_label = Label(root, width=5, height=2, text='일', bg=bg_color, font=('Arial',10))
+mo_label = Label(root, width=5, height=2, text='월', relief='solid', bd=0.5, bg=bg_color, font=('함초롬돋움',10))
+tu_label = Label(root, width=5, height=2, text='화', relief='solid', bd=0.5, bg=bg_color, font=('함초롬돋움',10))
+we_label = Label(root, width=5, height=2, text='수', relief='solid', bd=0.5, bg=bg_color, font=('함초롬돋움',10))
+th_label = Label(root, width=5, height=2, text='목', relief='solid', bd=0.5, bg=bg_color, font=('함초롬돋움',10))
+fr_label = Label(root, width=5, height=2, text='금', relief='solid', bd=0.5, bg=bg_color, font=('함초롬돋움',10))
+sa_label = Label(root, width=5, height=2, text='토', relief='solid', bd=0.5, bg=bg_color, font=('함초롬돋움',10))
+su_label = Label(root, width=5, height=2, text='일', relief='solid', bd=0.5, bg=bg_color, font=('함초롬돋움',10))
 mo_label.grid(row=2, column=0, sticky=N+E+W+S)
 tu_label.grid(row=2, column=1, sticky=N+E+W+S)
 we_label.grid(row=2, column=2, sticky=N+E+W+S)
