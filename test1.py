@@ -37,14 +37,24 @@ def display_custom_calendar(month, year):
     for a in range(3,9):
         for b in range(7):
             if 1 <= day_counter <= month_days[month]:
-                if (year, month, day_counter) in events:
-                    btn = Button(root, text=str(i), width=5, height=2, bg=bg_color, fg='red', command=lambda date=i : event_window(year, month, date))
-                    btn.grid(row=a, column=b, sticky=N+E+W+S)
-                    btns.append(btn)
-                else:    
-                    btn = Button(root, text=str(i), width=5, height=2, bg=bg_color, command=lambda date=i : event_window(year, month, date))
-                    btn.grid(row=a, column=b, sticky=N+E+W+S)
-                    btns.append(btn)
+                if (year, month, day_counter) == (today.year, today.month, today.day): 
+                    if (year, month, day_counter) in events:
+                        btn = Button(root, text=str(i), width=5, height=2, bg='orange', fg='red', command=lambda date=i : event_window(year, month, date))
+                        btn.grid(row=a, column=b, sticky=N+E+W+S)
+                        btns.append(btn)
+                    else:    
+                        btn = Button(root, text=str(i), width=5, height=2, bg='orange', command=lambda date=i : event_window(year, month, date))
+                        btn.grid(row=a, column=b, sticky=N+E+W+S)
+                        btns.append(btn)
+                else:
+                    if (year, month, day_counter) in events:
+                        btn = Button(root, text=str(i), width=5, height=2, bg=bg_color, fg='red', command=lambda date=i : event_window(year, month, date))
+                        btn.grid(row=a, column=b, sticky=N+E+W+S)
+                        btns.append(btn)
+                    else:    
+                        btn = Button(root, text=str(i), width=5, height=2, bg=bg_color, command=lambda date=i : event_window(year, month, date))
+                        btn.grid(row=a, column=b, sticky=N+E+W+S)
+                        btns.append(btn)        
                 i += 1
             day_counter += 1
 
