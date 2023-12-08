@@ -61,7 +61,6 @@ def display_custom_calendar(month, year):
 def enter_btn_cmd():
     year = year_entry.get()
     month = month_combobox.get()
-    year_entry.delete(0, END)
 
     print(btns)
     for btn in btns:
@@ -134,7 +133,7 @@ elif today.weekday() == 6:
 frame_today_weather = Frame(root, width=root_width, height=40, relief='solid', bd=0.5, bg=bg_color)
 frame_today_weather.grid(row=0, column=0, columnspan=7)
 
-label_today_weather = Label(frame_today_weather, text=str(today.month) + '월 ' + str(today.day) + '일 '+ weekday +' 부산광역시 현재기온: ' + temp + ' ' + rain, font=('함초롬돋움',10), bg=bg_color)
+label_today_weather = Label(frame_today_weather, text=str(today.month) + '월 ' + str(today.day) + '일 '+ weekday +' 부산광역시 현재기온: ' + temp + ' ' + rain, font=('함초롬돋움', 10), bg=bg_color)
 label_today_weather.place(x = 0, y = 8)
 
 change_date = Label(root, text=str(today.year)+'년 '+str(today.month)+'월', bg=bg_color, font=('Arial', 10))
@@ -147,6 +146,7 @@ month_combobox.set(str(today.month))
 
 year_entry = Entry(root, width=5)
 year_entry.grid(row=1, column=4, sticky=N+E+W+S)
+year_entry.insert(0, str(today.year))
 
 enter_btn = Button(root, width=5, text='입력', bg=bg_color, command=enter_btn_cmd)
 enter_btn.grid(row=1, column=6, sticky=N+E+W+S)
