@@ -1,5 +1,6 @@
 import datetime as dt
 import pickle
+from weather import *
 
 def display_custom_calendar(month, year):
     # 각 월의 일수를 저장한 리스트 (윤년이 아닌 경우)
@@ -28,8 +29,10 @@ def display_custom_calendar(month, year):
     elif today.weekday() == 6:   
         weekday = '일요일'    
     
-    # 현재 날짜 출력
+    # 현재 날짜 기온 강수상태 출력
     print(f"{today.month}월 {today.day}일 {weekday}")
+    print('부산광역시')
+    print(f'현재기온: {temp} {rain}')
     print('-' * 20)
 
     # 달력 상단에 현재 월/연도 표시
@@ -108,11 +111,27 @@ def del_event(year, month, date):
     else:
         print('일정이 없습니다')
 
-# 기념일 저장 딕셔너리
+#디데이 계산
+def calculate_dday(target_date):
+    # 현재 날짜 가져오기
+    today = dt.datetime.today().date()
+
+    # 특정 날짜 가져오기 (년, 월, 일)
+    year, month, day = map(int, target_date.split('-'))
+    target_date = dt.datetime(year, month, day).date()
+
+    # 디데이 계산
+    dday = (target_date - today).days
+
+    return dday
+
 event_date = {(1, 1): '🧧', (2, 14): '🍫', (5, 5): '👧', (8, 15): '🙌', (10, 9): '🇰🇷', (12, 25): '🎄'}     
 
 # 오늘 날짜 객체 생성
 today = dt.datetime.today()
+
+# 기온 강수 상태값 받아오기
+temp, rain = short_term_situation(str(today.year)+str(today.month).rjust(2, '0')+str(today.day).rjust(2, '0'), str(today.hour).rjust(2, '0')+'00')
 
 # get_all_events 함수로 파일에 있는 객체를 events에 불러온다
 events = get_all_events()
@@ -130,7 +149,8 @@ try:
         print('2. 일정 추가')
         print('3. 일정 조회')
         print('4. 일정 삭제')
-        print('5. 종료')
+        print('5. 디데이 설정')
+        print('6. 종료')
         choice = int(input('선택: ')) # 사용자에게 입력 받음
 
         if choice == 1:
@@ -156,6 +176,11 @@ try:
             del_event(year, month, date) # 원하는 날짜 일정을 삭제
 
         elif choice == 5:
+            target_date_input = input('디데이를 설정할 날짜를 입력하세요 (YYYY-MM-DD 형식): ')
+            dday = calculate_dday(target_date_input)
+            print(f"디데이: {dday}일 남았습니다.") #원하는 날에 해당하는 디데이 값
+
+        elif choice == 6:
             print()
             # get_all_events 함수로 파일을 events 객체에 불러온다
             events = get_all_events()
@@ -168,5 +193,6 @@ try:
         else:
             print('잘못된 입력입니다') # 잘못 입력했을 때 표시하고 이어감
         continue
+    
 except ValueError:
     print('잘못 입력했습니다.')
