@@ -62,7 +62,6 @@ def enter_btn_cmd():
     year = year_entry.get()
     month = month_combobox.get()
 
-    print(btns)
     for btn in btns:
         btn.destroy()
     btns.clear()
