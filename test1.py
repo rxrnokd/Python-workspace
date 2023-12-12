@@ -97,6 +97,7 @@ def event_window(year, month, date):
 
     event_view_window = Toplevel(root) 
     event_view_window.geometry('300x250+1000+250')
+    event_view_window.resizable(False, False)
 
     event_txt = Text(event_view_window, font=('Arial',12))
     event_txt.pack(fill='both', expand=True)
