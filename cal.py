@@ -102,7 +102,7 @@ def del_event(year, month, date):
     # get_all_events 함수로 파일에 있는 객체를 events에 불러온다
     events = get_all_events()
 
-    #일정이 있으면 삭제 하고 파일에 다시 쓰기 없으면 삭제 안함
+    # 일정이 있으면 삭제 하고 파일에 다시 쓰기 없으면 삭제 안함
     if (year, month, date) in events:
         del events[year, month, date]
         with open('events', 'wb') as f:
@@ -125,6 +125,7 @@ def calculate_dday(target_date):
 
     return dday
 
+# 기념일 이모티콘 저장 딕셔너리
 event_date = {(1, 1): '🧧', (2, 14): '🍫', (5, 5): '👧', (8, 15): '🙌', (10, 9): '🇰🇷', (12, 25): '🎄'}     
 
 # 오늘 날짜 객체 생성
