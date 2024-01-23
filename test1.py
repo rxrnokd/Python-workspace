@@ -17,7 +17,6 @@ GREEN = (0, 255, 0)
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Hydrogen Atom Simulator")
 
-
 class HydrogenAtomSimulator:
     font_small = pygame.font.Font(None, 18)
 
@@ -139,11 +138,10 @@ class HydrogenAtomSimulator:
 
     def display_potential(self, position):
         quantum_number = self.current_orbit + 1
-        potential_energy = -1 / (2 * quantum_number ** 2)  # Simple potential energy calculation
-        text_render = HydrogenAtomSimulator.font_small.render(f"V={potential_energy:.3f} eV", True, BLACK)
+        potential_energy = -13.6 / (quantum_number**2)  # Simple potential energy calculation
+        text_render = HydrogenAtomSimulator.font_small.render(f"V={potential_energy:.2f} eV", True, BLACK)
         text_position = (int(position[0]) + 15, int(position[1]) - 20)
         screen.blit(text_render, text_position)
-
 
 if __name__ == "__main__":
     simulator = HydrogenAtomSimulator()

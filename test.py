@@ -124,9 +124,9 @@ class HydrogenAtomSimulator:
 
             # Adjust the direction of the wave based on the transition
             if self.prev_orbit < self.current_orbit:
-                wave_point_x += int(self.orbit_radius[self.current_orbit])
+                wave_point_x -= int(self.orbit_radius[self.current_orbit])
             else:
-                wave_point_x -= int(self.orbit_radius[self.prev_orbit])
+                wave_point_x += int(self.orbit_radius[self.prev_orbit])
 
             pygame.draw.circle(screen, GREEN, (wave_point_x, wave_point_y), 2)
 
@@ -138,8 +138,8 @@ class HydrogenAtomSimulator:
 
     def display_potential(self, position):
         quantum_number = self.current_orbit + 1
-        potential_energy = -1 / (2 * quantum_number**2)  # Simple potential energy calculation
-        text_render = HydrogenAtomSimulator.font_small.render(f"V={potential_energy:.3f} eV", True, BLACK)
+        potential_energy = -13.6 / (quantum_number**2)  # Simple potential energy calculation
+        text_render = HydrogenAtomSimulator.font_small.render(f"V={potential_energy:.2f} eV", True, BLACK)
         text_position = (int(position[0]) + 15, int(position[1]) - 20)
         screen.blit(text_render, text_position)
 
